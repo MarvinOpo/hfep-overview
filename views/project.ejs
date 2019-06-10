@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="au theme template">
+    <meta name="author" content="Hau Nguyen">
+    <meta name="keywords" content="au theme template">
+
+    <!-- Title Page-->
+    <title>Projects</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" type="text/css"
+        href="https://unpkg.com/file-upload-with-preview@4.0.2/dist/file-upload-with-preview.min.css">
+
+    <!-- Fontfaces CSS-->
+    <link href="css/font-face.css" rel="stylesheet" media="all">
+    <link href="vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
+    <link href="vendor/font-awesome-5/css/fontawesome-all.min.css" rel="stylesheet" media="all">
+    <link href="vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
+
+    <!-- Bootstrap CSS-->
+    <link href="vendor/bootstrap-4.1/bootstrap.min.css" rel="stylesheet" media="all">
+
+    <!-- Vendor CSS-->
+    <link href="vendor/animsition/animsition.min.css" rel="stylesheet" media="all">
+    <link href="vendor/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet" media="all">
+    <link href="vendor/wow/animate.css" rel="stylesheet" media="all">
+    <link href="vendor/css-hamburgers/hamburgers.min.css" rel="stylesheet" media="all">
+    <link href="vendor/slick/slick.css" rel="stylesheet" media="all">
+    <link href="vendor/select2/select2.min.css" rel="stylesheet" media="all">
+    <link href="vendor/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" media="all">
+
+    <!-- Main CSS-->
+    <link href="css/theme.css" rel="stylesheet" media="all">
+
+    <link href="css/selectize.css" type="text/css" rel="stylesheet">
+
+    <link href="css/datepicker.css" type="text/css" rel="stylesheet">
+
+    <link href="css/pagination.css" type="text/css" rel="stylesheet">
+
+    <!-- Toastr CSS-->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
+
+</head>
+
+<body class="animsition">
+    <div class="page-wrapper">
+        <%- include navigation.ejs %>
+        <!-- PAGE CONTAINER-->
+        <div class="page-container">
+            <%- include header.ejs %>
+
+            <!-- MAIN CONTENT-->
+            <div class="main-content">
+                <div class="section__content section__content--p30">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <!-- DATA TABLE -->
+                                <h3 class="title-5 m-b-35">Projects</h3>
+                                <div class="table-data__tool">
+                                    <div class="table-data__tool-left">
+                                        <div class="rs-select2--light rs-select2--md">
+                                            <select id="province_filter" class="demo-default">
+                                                <option value="">All Province</option>
+                                                <option value="Bohol">Bohol</option>
+                                                <option value="Cebu">Cebu</option>
+                                                <option value="Negros">Negros</option>
+                                                <option value="Siquijor">Siquijor</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="rs-select2--light rs-select2--md">
+                                            <select id="muncity_filter" class="demo-default">
+                                                <option value="">All Municipality</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="rs-select2--light rs-select2--md">
+                                            <select id="facility_filter" class="demo-default">
+                                                <option value="">All Facility</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="rs-select2--light rs-select2--md">
+                                            <select id="source_filter" class="demo-default">
+                                                <option value="">Any Source</option>
+                                                <option value="HFEP">HFEP</option>
+                                                <option value="BUB">BUB</option>
+                                                <option value="GAA">GAA</option>
+                                                <option value="SAA">SAA</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="rs-select2--light rs-select2--md">
+                                            <select id="year_filter" class="demo-default">
+                                                <option value="">Any Year</option>
+                                            </select>
+                                        </div>
+                                        <!-- <button class="au-btn-filter">
+                                            <i class="zmdi zmdi-filter-list"></i>filters</button> -->
+                                    </div>
+                                    <div class="table-data__tool-right">
+                                        <button class="au-btn au-btn-icon au-btn--green au-btn--small"
+                                            data-toggle="modal" data-target="#add_project">
+                                            <i class="zmdi zmdi-plus"></i>add item</button>
+                                    </div>
+                                </div>
+
+                                <div id="project_container" class="container-fluid m-b-35">
+
+                                </div>
+                                <div class="pager_container d-flex justify-content-center"></div>
+                                <!-- END DATA TABLE -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <%- include footer.ejs %>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="add_project" class="modal" role="dialog" data-backdrop=''>
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content" style="width: 700px;">
+                <div class="modal-header">
+                    <h4 class="modal-title">Add Project</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+
+                    <!-- <div class="text-center">
+                        <img id="modal_image" src="images/add-image.jpg" class="w-100 img-fluid" alt="#"
+                            style="height:300px">
+
+                        <div id="image_holder"></div>
+                    </div>
+
+                    <input id="file_picker" name="myFiles" type="file" class="invisible" accept="image/*"
+                        multiple="multiple" /> -->
+
+                    <div class="custom-file-container" data-upload-id="myFilePicker">
+                        <label style="display: none">Upload File <a href="javascript:void(0)"
+                                class="custom-file-container__image-clear" title="Clear Image">&times;</a></label>
+
+                        <div class="table-data__tool-right m-t-20">
+                            <button id = "add-image" class="au-btn au-btn-icon au-btn--green au-btn--small">
+                                <i class="zmdi zmdi-plus"></i>add Image</button>
+                        </div>
+
+                        <label class="custom-file-container__custom-file" style="display: none;">
+                            <input id="file_picker" type="file"
+                                class="custom-file-container__custom-file__custom-file-input" accept="*" multiple
+                                aria-label="Choose File">
+                            <input type="hidden" name="MAX_FILE_SIZE" value="10485760" />
+                            <span class="custom-file-container__custom-file__custom-file-control"></span>
+                        </label>
+                        <div class="custom-file-container__image-preview m-t-0"></div>
+                    </div>
+
+                    <div id="error_container"></div>
+
+                    <label>Project Name <span class="color-red">*</span></label>
+                    <input id="modal_name" type="text" class="au-input au-input--full m-b-10 text-capitalize" />
+                    <div class="row">
+                        <div class=" col-md-5">
+                            <label>Facility <span class="color-red">*</span></label>
+                            <div class="rs-select2--light au-input--full m-b-10" style="height: 45px;">
+                                <select id="modal_facility" class="demo-default w-100">
+                                    <option value="">Select Facility</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label>Fund Source <span class="color-red">*</span></label>
+                            <div class="rs-select2--light au-input--full m-b-10" style="height: 45px;">
+                                <select id="modal_source" class="demo-default w-100">
+                                    <option value="">Select Source</option>
+                                    <option value="HFEP">HFEP</option>
+                                    <option value="BUB">BUB</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class=" col-md-3">
+                            <label>Funding Year <span class="color-red">*</span></label>
+                            <div class="rs-select2--light au-input--full m-b-10" style="height: 45px;">
+                                <select id="modal_year" class="demo-default w-100">
+                                    <option value="">Select Year</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Start Date <span class="color-red">*</span></label>
+                            <div class="input-append date au-input au-input--full m-b-10 text-capitalize" id="dp_start"
+                                data-date-format="yyyy-mm-dd" style="height: 45px;">
+                                <input id="modal_start" class="span2 w-100" size="16" type="text">
+                                <span class="add-on"><i class="icon-th"></i></span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label>End Date <span class="color-red">*</span></label>
+                            <div class="input-append date au-input au-input--full m-b-10 text-capitalize" id="dp_end"
+                                data-date-format="yyyy-mm-dd" style="height: 45px;">
+                                <input id="modal_end" class="span2 w-100" size="16" type="text">
+                                <span class="add-on"><i class="icon-th"></i></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Implementing Agency <span class="color-red">*</span></label>
+                            <div class="rs-select2--light au-input--full m-b-10" style="height: 45px;">
+                                <select id="modal_agency" class="demo-default w-100">
+                                    <option value="">Select Agency</option>
+                                    <option value="DOH">DOH</option>
+                                    <option value="DPWH">DPWH</option>
+                                    <option value="LGU">LGU</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label>Status <span class="color-red">*</span></label>
+                            <div class="rs-select2--light au-input--full m-b-10" style="height: 45px;">
+                                <select id="modal_status" class="demo-default w-100">
+                                    <option value="">Select Status</option>
+                                    <option value="Abandoned">Abandoned</option>
+                                    <option value="Bid Evaluation">Bid Evaluation</option>
+                                    <option value="Completed">Completed</option>
+                                    <option value="Discontinued">Discontinued</option>
+                                    <option value="Expired">Expired</option>
+                                    <option value="Not Started">Not Started</option>
+                                    <option value="Ongoing">Ongoing </option>
+                                    <option value="Suspended">Suspended </option>
+                                    <option value="Terminated">Terminated </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <label>Allotment <span class="color-red">*</span></label>
+                    <input id="modal_allotment" type="text" class="au-input au-input--full m-b-10 text-capitalize" />
+
+                    <label>Contractor </label>
+                    <div class="rs-select2--light au-input--full m-b-10" style="height: 45px;">
+                        <select id="modal_contractor" class="demo-default w-100">
+                            <option value="">Select Contractor</option>
+                        </select>
+                    </div>
+
+                    <label>Remarks </label>
+                    <textarea id="modal_remarks" class="au-input au-input--full m-b-10 text-capitalize"
+                        placeholder="Write something here..."></textarea>
+
+                </div>
+                <div class="modal-footer" style="justify-content: center;">
+                    <button id="modal_add" type="button" class="au-btn au-btn-icon au-btn--green au-btn--small"
+                        style="width: 82.88px">Add</button>
+                    <button id="modal_cancel" type="button" class="au-btn au-btn-icon au-btn--blue au-btn--small"
+                        data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Toastr JS -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <!-- File Upload JS -->
+    <script src="https://unpkg.com/file-upload-with-preview@4.0.2/dist/file-upload-with-preview.min.js"></script>
+
+    <!-- Jquery JS-->
+    <script src="vendor/jquery-3.2.1.min.js"></script>
+    <!-- Bootstrap JS-->
+    <script src="vendor/bootstrap-4.1/popper.min.js"></script>
+    <script src="vendor/bootstrap-4.1/bootstrap.min.js"></script>
+    <!-- Vendor JS       -->
+    <script src="vendor/slick/slick.min.js">
+    </script>
+    <script src="vendor/wow/wow.min.js"></script>
+    <script src="vendor/animsition/animsition.min.js"></script>
+    <script src="vendor/bootstrap-progressbar/bootstrap-progressbar.min.js">
+    </script>
+    <script src="vendor/counter-up/jquery.waypoints.min.js"></script>
+    <script src="vendor/counter-up/jquery.counterup.min.js">
+    </script>
+    <script src="vendor/circle-progress/circle-progress.min.js"></script>
+    <script src="vendor/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <script src="vendor/chartjs/Chart.bundle.min.js"></script>
+    <script src="vendor/select2/select2.min.js">
+    </script>
+
+    <script src="js/main.js"></script>
+    <script src="js/bootstrap-datepicker.js"></script>
+    <script src="js/selectize.min.js"></script>
+    <script src="js/pagination.js"></script>
+    <script src="js/project.js"></script>
+</body>
+
+</html>
+<!-- end document-->

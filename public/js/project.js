@@ -63,11 +63,7 @@ let upload;
             $('#error_container').html('');
         }
 
-        if ($('#modal_add').text() == 'Add') {
-            uploadImages();
-        } else {
-
-        }
+        uploadImages();
     });
 
     $('#add_project').on('hidden.bs.modal', function (e) {
@@ -214,7 +210,7 @@ function insertProject(body) {
             if (data.status == "success") {
                 toastr.success("Successfully saved.");
                 $('#add_project').modal('hide');
-                getProjects();
+                facility.trigger('change');
             } else {
                 toastr.error("An error has occured.");
             }
@@ -243,7 +239,24 @@ function editProject(data) {
     $('#modal_end').val(data.end_date.split('T')[0]);
     $('#modal_allotment').val(data.allotment);
 
-    upload.addFiles(JSON.parse(data.images));
+    // var images = [];
+    // const imagePaths = JSON.parse(data.images);
+    // for (let i = 0; i < imagePaths.length; i++) {
+    //     fetch(imagePaths[i])
+    //         .then(res => res.blob())
+    //         .then(blob => {
+    //             const file = new File([blob], imagePaths[i].split("\\")[2], blob);
+    //             upload.processFile(file);
+    //             images.push(file);
+    //         })
+
+    //     if (i == imagePaths.length - 1) {
+    //         console.log(images.length);
+    //         upload.addFiles(images);
+    //         console.log(upload.currentFileCount);
+    //     }
+    // }
+    upload.addImagesFromPath(JSON.parse(data.images));
 }
 
 function getProjects() {
@@ -346,8 +359,21 @@ function uploadImages() {
     const projectName = $('#modal_name').val();
 
     for (let i = 0; i < form.length; i++) {
-        formData.append(projectName, form[i]);
+        let item = form[i];
+
+        if (item.constructor === Blob) {
+            console.log('pasok');
+            item = new File([item], item.name.split('\\')[2], {
+                type: "image/jpeg",
+                lastModified: Date.now()
+            });
+        }
+
+        console.log(item);
+        formData.append(projectName, item);
     }
+
+
 
     fetch('/upload', {
         method: 'POST',
@@ -377,7 +403,11 @@ function uploadImages() {
                 images: images
             };
 
-            insertProject(body);
+            if ($('#modal_add').text() == 'Add') {
+                insertProject(body);
+            } else {
+                console.log(images);
+            }
 
         })
         .catch(err => {

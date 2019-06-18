@@ -27,17 +27,23 @@ var storage = multer.diskStorage({
     let name = file.fieldname;
     let path = `./public/uploads/${name}`;
     fs.mkdirsSync(path);
-    cb(null, path)
+    cb(null, path);
   },
   filename: function (req, file, cb) {
-    cb(null, file.originalname)
+    cb(null, file.originalname);
   }
 })
 
 var upload = multer({ storage: storage })
 
+var empty_dir = function(fieldname){
+  let path = `./public/uploads/` + fieldname;
+  
+};
+
 app.post('/upload', upload.any(), (req, res, next) => {
-  const files = req.files
+  const files = req.files;
+  console.log(files);
   if (!files) {
     const error = new Error('Please choose files')
     error.httpStatusCode = 400
